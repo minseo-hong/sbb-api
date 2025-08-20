@@ -30,7 +30,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/sbb-api/latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/sbb-api:latest
 
     - name: SSH를 통해 AWS Lightsail에 배포
       uses: tiyee/action-ssh@v1.0.1
