@@ -37,7 +37,7 @@ jobs:
       with:
         host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
         username: ${{ secrets.AWS_LIGHTSAIL_USERNAME }}
-        key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+        privateKey: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
         command:
           cd ~/sbb-api
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
