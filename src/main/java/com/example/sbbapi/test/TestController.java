@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping
     public String showTestText() {
-        return "If you can see this message, then you succeeded in setting up Github Actions.";
+        return "If you can see this changed message, then you succeeded in setting up Github Actions.";
     }
 }
