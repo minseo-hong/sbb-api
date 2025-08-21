@@ -33,7 +33,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/sbb-api:latest
   
-      - name: ssh를 통해 AWS Lightsail에 배포
+      - name: ssh를 통해 AWS Lightsail에 무중단 배포
         uses: tiyee/action-ssh@v1.0.1
         with:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
@@ -42,6 +42,4 @@ jobs:
           command: |
             cd ~/sbb-api
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
+            ./deploy.sh
