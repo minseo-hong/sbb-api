@@ -8,6 +8,7 @@ import com.example.sbbapi.question.dto.QuestionDetailDto;
 import com.example.sbbapi.question.dto.QuestionRequestDto;
 import com.example.sbbapi.question.dto.QuestionListItemDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @RequiredArgsConstructor
+@Slf4j
 public class QuestionController {
     private final QuestionService questionService;
     private final AnswerService answerService;
@@ -24,6 +26,7 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<List<QuestionListItemDto>> getArticles() {
         List<QuestionListItemDto> result = this.questionService.getArticles();
+        log.info("/questions 호출");
         return ResponseEntity.ok(result);
     }
 
