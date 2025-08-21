@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @RequiredArgsConstructor
-@Slf4j
 public class QuestionController {
     private final QuestionService questionService;
     private final AnswerService answerService;
@@ -26,7 +25,6 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<List<QuestionListItemDto>> getArticles() {
         List<QuestionListItemDto> result = this.questionService.getArticles();
-        log.info("/questions 호출");
         return ResponseEntity.ok(result);
     }
 
