@@ -1,14 +1,12 @@
 package com.example.sbbapi.question;
 
-import com.example.sbbapi.answer.Answer;
+import com.example.sbbapi.answer.AnswerService;
 import com.example.sbbapi.answer.dto.AnswerRequestDto;
 import com.example.sbbapi.answer.dto.AnswerResponseDto;
-import com.example.sbbapi.answer.AnswerService;
 import com.example.sbbapi.question.dto.QuestionDetailDto;
-import com.example.sbbapi.question.dto.QuestionRequestDto;
 import com.example.sbbapi.question.dto.QuestionListItemDto;
+import com.example.sbbapi.question.dto.QuestionRequestDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
