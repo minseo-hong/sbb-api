@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/auth/sign-up", "/auth/sign-in", "/").permitAll()
+                        authorize.requestMatchers("/auth/sign-up", "/auth/sign-in", "/", "/actuator/health").permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtRequestFilter(this.jwtUtil),
                         UsernamePasswordAuthenticationFilter.class)
