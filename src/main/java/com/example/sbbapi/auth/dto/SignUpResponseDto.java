@@ -4,13 +4,12 @@ import com.example.sbbapi.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
+@Builder
 public class SignUpResponseDto {
     private String username;
 
-
-    public static SignUpResponseDto fromEntry(User user) {
+    public static SignUpResponseDto fromEntity(User user) {
         return SignUpResponseDto.builder()
                 .username(user.getUsername())
                 .build();

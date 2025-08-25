@@ -1,9 +1,10 @@
 package com.example.sbbapi.security;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -24,26 +25,27 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().verifyWith(secretKey).build()
-                .parseSignedClaims(token).getPayload();
-    }
-
-    public String getUsername(String token) {
-        return extractAllClaims(token).get("username", String.class);
-    }
-
-    public String getRole(String token) {
-        return extractAllClaims(token).get("role", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
     }
 
     public Boolean isExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
 
-    public String generateToken(String username, String role) {
+    public String getName(String token) {
+        return extractAllClaims(token).get("name", String.class);
+    }
+
+    public String getRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
+    }
+
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
-                .claim("username", username)
-                .claim("role", role)
+                .claim("name", userDetails.getUsername())
+                .claim("role", userDetails.getAuthorities()
+                        .stream().map(GrantedAuthority::getAuthority)
+                        .findFirst().orElse("ROLE_USER"))
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(secretKey)

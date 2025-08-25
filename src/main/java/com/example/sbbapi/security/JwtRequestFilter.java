@@ -6,16 +6,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @RequiredArgsConstructor
-@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
 
@@ -27,20 +24,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String accessToken = authorization.split(" ")[1];
 
             if (!jwtUtil.isExpired(accessToken)) {
-                String username = jwtUtil.getUsername(accessToken);
+                String username = jwtUtil.getName(accessToken);
                 String role = jwtUtil.getRole(accessToken);
 
                 User user = User.builder()
                         .username(username)
-                        .password("")
                         .role(role)
                         .build();
 
-                Authentication authentication
-                        = new UsernamePasswordAuthenticationToken(
-                                user, null, user.getAuthorities());
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
 

@@ -18,13 +18,13 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
-        SignUpResponseDto result = this.authService.signUp(signUpRequestDto);
-        return ResponseEntity.created(URI.create("/auth")).body(result);
+        SignUpResponseDto newUser = this.authService.signUp(signUpRequestDto);
+        return ResponseEntity.created(URI.create("/auth/sign-in")).body(newUser);
     }
 
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponseDto> signIn(@RequestBody SignInRequestDto signInRequestDto) {
-        SignInResponseDto result = this.authService.signIn(signInRequestDto);
-        return ResponseEntity.ok(result);
+        SignInResponseDto token = this.authService.signIn(signInRequestDto);
+        return ResponseEntity.ok(token);
     }
 }
